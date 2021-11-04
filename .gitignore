@@ -1,0 +1,5 @@
+node_modules/
+deno_dir/
+settings/Mainnet.toml
+settings/Testnet.toml
+history.txt

@@ -1,0 +1,7 @@
+[project]
+name = "clarity-experiments"
+requirements = []
+costs_version = 1
+[contracts.todos]
+path = "contracts/todos.clar"
+depends_on = []

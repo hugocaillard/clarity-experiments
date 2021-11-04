@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "allowJs": false
+  },
+  "include": ["tests"],
+  "exclude": ["node_modules"]
+}
