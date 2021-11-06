@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cache": "DENO_DIR=./deno_dir deno cache tests/deps.ts",
+    "test": "DENO_DIR=./deno_dir clarinet test",
+    "test:watch": "npm test -- --watch"
   },
   "author": "",
   "license": "ISC",

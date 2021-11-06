@@ -2,6 +2,10 @@
 name = "clarity-experiments"
 requirements = []
 costs_version = 1
+[contracts.double-linked-list]
+path = "contracts/double-linked-list.clar"
+depends_on = []
+
 [contracts.todos]
 path = "contracts/todos.clar"
 depends_on = []
