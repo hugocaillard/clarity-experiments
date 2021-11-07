@@ -30,18 +30,15 @@
   (new-id uint)
   (optional-previous-id (optional uint))
 )
-  (if (is-some optional-previous-id)
-    (let (
-      (previous-id (unwrap! optional-previous-id ERR_UNEXPECTED))
-      (previous-item-dll 
-        (unwrap! (map-get? items-dll previous-id) ERR_UNEXPECTED)
-      )
+  (let (
+    (previous-id (unwrap! optional-previous-id (ok false)))
+    (previous-item-dll 
+      (unwrap! (map-get? items-dll previous-id) ERR_UNEXPECTED)
     )
-      (ok (map-set items-dll previous-id
-        (merge previous-item-dll { nextId: (some new-id) })
-      ))
-    )
-    (ok false)
+  )
+    (ok (map-set items-dll previous-id
+      (merge previous-item-dll { nextId: (some new-id) })
+    ))
   )
 )
 
