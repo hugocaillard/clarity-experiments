@@ -45,6 +45,30 @@
   )
 )
 
+(define-private (relink-previous-item
+  (optional-previous-id (optional uint))
+  (next-id (optional uint))
+) 
+  (let (
+    (previous-id (unwrap! optional-previous-id (ok false)))
+    (item-dll (unwrap! (map-get? items-dll previous-id) ERR_UNEXPECTED))
+  )
+    (ok (map-set items-dll previous-id (merge item-dll { nextId: next-id})))
+  )
+)
+
+(define-private (relink-next-item
+  (optional-next-id (optional uint))
+  (previous-id (optional uint))
+) 
+  (let (
+    (next-id (unwrap! optional-next-id (ok false)))
+    (item-dll (unwrap! (map-get? items-dll next-id) ERR_UNEXPECTED))
+  )
+    (ok (map-set items-dll next-id (merge item-dll { previousId: previous-id})))
+  )
+)
+
 (define-private (set-user-last-item (id uint) (previous-id (optional uint)))
   (let ((user (unwrap! (map-get? users tx-sender) ERR_FORBIDDEN)))
     (if (is-eq (get lastItemId user) (some id))
@@ -82,8 +106,12 @@
   (let (
     (item-dll (unwrap! (map-get? items-dll id) ERR_NOT_FOUND))
     (previous-id (get previousId item-dll))
+    (next-id (get nextId item-dll))
   )
     (try! (set-user-last-item id previous-id))
+    (try! (relink-previous-item previous-id next-id))
+    (try! (relink-next-item next-id previous-id))
+    (map-delete items-dll id)
     (ok (map-delete items { author: tx-sender, id: id }))
   )
 )
@@ -113,7 +141,9 @@
 
 (define-public (get-items (author principal) (id uint))
   (begin 
-    (asserts! (is-some (map-get? items { author: author, id: id })) ERR_NOT_FOUND)
+    (asserts! 
+      (is-some (map-get? items { author: author, id: id })) ERR_NOT_FOUND
+    )
     (ok (map find-item (fold find-items-list (list
       { author: author, id: id }
       { author: author, id: u0 }

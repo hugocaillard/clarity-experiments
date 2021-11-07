@@ -147,3 +147,32 @@ Clarinet.test({
     assertEquals(meAfter, getFakePerson('Cohars', 1))
   },
 })
+
+Clarinet.test({
+  name: '`delete-item` - relinks previous and next posts',
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const { address } = accounts.get('wallet_1')!
+    const { register, addItem, deleteItem, getItem } = getApi(
+      accounts.get('wallet_1')!,
+    )
+
+    chain.mineBlock([
+      register('Cohars'),
+      addItem('Hello world'),
+      addItem('Hello world'),
+      addItem('Hello world'),
+      addItem('Hello world'),
+      deleteItem(2),
+    ])
+
+    const { receipts } = chain.mineBlock([
+      getItem(address, 1),
+      getItem(address, 3),
+    ])
+
+    const post1 = receipts[0].result.expectOk().expectTuple()
+    const post2 = receipts[1].result.expectOk().expectTuple()
+    assertEquals(post1, getFakePost(1, 'Hello world', 0, 3))
+    assertEquals(post2, getFakePost(3, 'Hello world', 1, 4))
+  },
+})
