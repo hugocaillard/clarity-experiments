@@ -9,3 +9,15 @@ depends_on = []
 [contracts.todos]
 path = "contracts/todos.clar"
 depends_on = []
+
+[contracts.items-storage]
+path = "contracts/proxy/items-storage.clar"
+depends_on = []
+
+[contracts.proxy-v1]
+path = "contracts/proxy/proxy-v1.clar"
+depends_on = ["items-storage"]
+
+[contracts.proxy-v2]
+path = "contracts/proxy/proxy-v2.clar"
+depends_on = ["items-storage"]
