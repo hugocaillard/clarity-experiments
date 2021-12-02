@@ -27,5 +27,8 @@
 )
 
 (define-public (delete-todo (id uint))
-  (ok (map-delete todos { id: id, author: tx-sender }))
+  (ok (asserts!
+    (is-eq true (map-delete todos { id: id, author: tx-sender }))
+    (err u401)
+  ))
 )
