@@ -60,9 +60,11 @@
 )
 
 (define-public (update-item (id uint) (data (string-utf8 100)))
-  (let ((item (unwrap! (map-get? items id) ERR_NOT_FOUND)))
+  (begin
     (try! (is-authorized))
-    (ok (map-set items id (merge item { data: data })))
+    (let ((item (unwrap! (map-get? items id) ERR_NOT_FOUND)))
+      (ok (map-set items id (merge item { data: data })))
+    )
   )
 )
 
