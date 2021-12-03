@@ -45,21 +45,18 @@
 )
 
 ;; fold to ordered list of dll ids
-(define-private (get-last-ids (next uint) (acc (list 10 uint)))
-  (if (is-eq (len acc) u0)
-    (unwrap! (as-max-len? (append acc next) u10) acc)
-    (let (
-      (last-id (unwrap! (element-at acc (- (len acc) u1)) acc))
-      (item-dll (unwrap! (map-get? items-dll last-id) acc))
-      (previous-id (unwrap! (get previousId item-dll) acc))
-    )
-      (unwrap! (as-max-len? (append acc previous-id) u10) acc)
-    )
+(define-private (last-10-ids-reducer (next uint) (acc (list 10 uint)))
+  (let (
+    (last-id (unwrap! (element-at acc (- (len acc) u1)) acc))
+    (item-dll (unwrap! (map-get? items-dll last-id) acc))
+    (previous-id (unwrap! (get previousId item-dll) acc))
+  )
+    (unwrap! (as-max-len? (append acc previous-id) u10) acc)
   )
 )
 
-(define-private (fold-from (id uint))
-  (fold get-last-ids (list id u0 u0 u0 u0 u0 u0 u0 u0 u0) (list))
+(define-private (get-last-10-ids-from (id uint))
+  (fold last-10-ids-reducer LIST_10 (list id))
 )
 
 ;; contract logic
@@ -144,9 +141,12 @@
 (define-public (get-items (item-id uint))
   (begin
     (asserts! (is-some (map-get? items item-id)) ERR_NOT_FOUND)
-    (ok (map get-item-by-id (fold-from item-id)))
+    (ok (map get-item-by-id (get-last-10-ids-from item-id)))
   )
 )
+
+;; empty lists
+(define-constant LIST_10 (list u0 u0 u0 u0 u0 u0 u0 u0 u0 u0))
 
 ;; error codes
 (define-constant ERR_BAD_REQUEST (err u400))

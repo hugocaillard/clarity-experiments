@@ -122,7 +122,9 @@ Clarinet.test({
   name: '`delete-item` - relinks previous and next posts',
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const { address } = accounts.get('wallet_1')!
-    const { addItem, deleteItem, getItem } = getApi(accounts.get('wallet_1')!)
+    const { addItem, deleteItem, getItem, getItems } = getApi(
+      accounts.get('wallet_1')!,
+    )
     chain.mineBlock([
       addItem('Hello world'),
       addItem('Hello world'),
@@ -130,11 +132,26 @@ Clarinet.test({
       addItem('Hello world'),
       deleteItem(2),
     ])
-    const { receipts } = chain.mineBlock([getItem(1), getItem(3)])
+    const { receipts } = chain.mineBlock([getItem(1), getItem(3), getItems(4)])
 
     const post1 = receipts[0].result.expectOk().expectTuple()
     const post2 = receipts[1].result.expectOk().expectTuple()
     assertEquals(post1, getFakeItem(1, 'Hello world', address, 0, 3))
     assertEquals(post2, getFakeItem(3, 'Hello world', address, 1, 4))
+
+    const list = receipts[2].result.expectOk().expectList()
+    assertEquals(list.length, 3)
+    assertEquals(
+      list[0].expectOk().expectTuple(),
+      getFakeItem(4, 'Hello world', address, 3),
+    )
+    assertEquals(
+      list[1].expectOk().expectTuple(),
+      getFakeItem(3, 'Hello world', address, 1, 4),
+    )
+    assertEquals(
+      list[2].expectOk().expectTuple(),
+      getFakeItem(1, 'Hello world', address, 0, 3),
+    )
   },
 })
