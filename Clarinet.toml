@@ -1,13 +1,16 @@
 [project]
 name = "clarity-experiments"
+authors = []
+description = ""
+telemetry = false
 requirements = []
 costs_version = 1
-[contracts.double-linked-list]
-path = "contracts/double-linked-list.clar"
+[contracts.custom-iteration]
+path = "contracts/custom-iteration.clar"
 depends_on = []
 
-[contracts.todos]
-path = "contracts/todos.clar"
+[contracts.double-linked-list]
+path = "contracts/double-linked-list.clar"
 depends_on = []
 
 [contracts.items-storage]
@@ -21,3 +24,7 @@ depends_on = ["items-storage"]
 [contracts.proxy-v2]
 path = "contracts/proxy/proxy-v2.clar"
 depends_on = ["items-storage"]
+
+[contracts.todos]
+path = "contracts/todos.clar"
+depends_on = []
