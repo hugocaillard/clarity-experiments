@@ -28,3 +28,7 @@ depends_on = ["items-storage"]
 [contracts.todos]
 path = "contracts/todos.clar"
 depends_on = []
+
+[contracts.var-get-costs]
+path = "contracts/costs-analysis/var-get-costs.clar"
+depends_on = []
