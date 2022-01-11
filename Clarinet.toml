@@ -13,6 +13,10 @@ depends_on = []
 path = "contracts/double-linked-list.clar"
 depends_on = []
 
+[contracts.hex-color]
+path = "contracts/hex-color.clar"
+depends_on = []
+
 [contracts.items-storage]
 path = "contracts/proxy/items-storage.clar"
 depends_on = []
