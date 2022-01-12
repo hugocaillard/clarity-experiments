@@ -7,8 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "cache": "DENO_DIR=./deno_dir deno cache tests/deps.ts",
-    "test": "DENO_DIR=./deno_dir clarinet test",
+    "test": "clarinet test",
     "test:watch": "npm test -- --watch"
   },
   "author": "",
