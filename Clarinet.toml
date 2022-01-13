@@ -29,6 +29,14 @@ depends_on = ["items-storage"]
 path = "contracts/proxy/proxy-v2.clar"
 depends_on = ["items-storage"]
 
+[contracts.sip009-nft-trait]
+path = "contracts/sip009-nft-trait.clar"
+depends_on = []
+
+[contracts.svg-nft]
+path = "contracts/svg-nft.clar"
+depends_on = ["sip009-nft-trait"]
+
 [contracts.todos]
 path = "contracts/todos.clar"
 depends_on = []
