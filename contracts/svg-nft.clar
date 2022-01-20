@@ -25,7 +25,7 @@
   (concat (concat (concat (concat (concat
     "<rect x='" x) "' y='") y)
     "' width='") width) "' height='") height)
-    "' fill='") fill) "' />"
+    "' fill='#") fill) "' />"
   )
 )
 
@@ -34,7 +34,7 @@
 (build-flag-fr "<g>")
 (build-flag-fr (get-rect "1" "1" "100" "200" "002395"))
 (build-flag-fr (get-rect "101" "1" "100" "200" "FFFFFF"))
-(build-flag-fr (get-rect "101" "1" "100" "200" "ED2939"))
+(build-flag-fr (get-rect "201" "1" "100" "200" "ED2939"))
 (build-flag-fr "</g>")
 (build-flag-fr "</svg>")
 
