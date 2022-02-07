@@ -44,3 +44,15 @@ depends_on = []
 [contracts.var-get-costs]
 path = "contracts/costs-analysis/var-get-costs.clar"
 depends_on = []
+
+[contracts.is-sorted]
+path = "contracts/costs-analysis/is-sorted.clar"
+depends_on = []
+
+[contracts.sender-test-a]
+path = "contracts/tx-sender-test/sender-test-a.clar"
+depends_on = []
+
+[contracts.sender-test-b]
+path = "contracts/tx-sender-test/sender-test-b.clar"
+depends_on = []
